@@ -28,6 +28,11 @@ class db:
 	def delete_match(self, query):
 		return self.coll.find_one_and_delete(query)
 
+    def print_all():
+        cursor = coll.find()
+        for document in cursor:
+            print(document)
+
 	#DANGEROUS SHIT
 	def cleardb():
 		self.coll.delete_many({})
