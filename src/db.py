@@ -10,14 +10,14 @@ client = pymongo.MongoClient()
 class db:
 	def __init__(self):
 		self.client = pymongo.MongoClient()
-		self.database = client['test1']
-		self.coll = db['test_coll1']
+		self.database = self.client['test1']
+		self.coll = self.database['test_coll1']
 
 	def insert_match(self, match):
 		#update won't insert if it's a duplicate
 		#TODO: handle unique ids manually for 
 		self.coll.update_one({"user_1": match['user_1'], "user_2": match['user_2']},
-							match,
+							{"$set": match},
 							upsert=True
 							)
 	#returns JSON object with results of query
@@ -28,11 +28,11 @@ class db:
 	def delete_match(self, query):
 		return self.coll.find_one_and_delete(query)
 
-    def print_all():
-        cursor = coll.find()
-        for document in cursor:
-            print(document)
+	def print_all(self):
+		cursor = self.coll.find()
+		for document in cursor:
+			print(document)
 
 	#DANGEROUS SHIT
-	def cleardb():
+	def cleardb(self):
 		self.coll.delete_many({})
