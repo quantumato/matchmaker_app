@@ -51,5 +51,5 @@ def test2():
 	for u in ulist:
 		print(u)
 	d.cleardb()
-test1()
-test2()
+d = db()
+d.print_all()
