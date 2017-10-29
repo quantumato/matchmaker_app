@@ -1,30 +1,44 @@
 from match import match
 from db import db
 import sys
+from bson.objectid import ObjectId
 
+oid = sys.stdin.readline().strip()
 user = sys.stdin.readline().strip()
-id = sys.stdin.readline().strip()
+mode = sys.stdin.readline().strip()
+
 
 d = db()
-flist = d.find_match({'_id':str(id)})
-if flist.count() != 1:
-	#this should never happen
-	f = open("/home/AD/quantumato/blacksite.log", "a")
-	f.write("No stored value for object ", id, " and user ", user)
-for document in flist:
-	#if user 1
-	if user == document['user_1']:
-		if document['status'] == 'pending':
-			document['status'] = 'accepted1'
-		#document status == accepted2
-		else:
-			document['status'] = 'accepted'
-	elif user == document['user_2']:
-		if document['status'] == 'pending':
-			document['status'] = 'accepted2'
-		else:
-			document['status'] = 'accepted'
-	#this should never execute
+document = d.find_match({'_id':ObjectId(oid)})
+d.print_all()
+#:w
+#document = d.find_match({'_id':str(oid)})
+#if flist.count() != 1:
+#this should never happen
+#	f = open("/home/AD/quantumato/blacksite.log", "a")
+#f.write("No stored value for object ", id, " and user ", user)
+if document == None:
+	print("result not found")
+elif mode == 'rejected':
+	document['status'] = 'rejected'
+	d.insert_match(document)
+#if user 1
+elif user == document['user_1']:
+	if document['status'] == 'pending':
+		document['status'] = 'accepted1'
+		d.insert_match(document)
+	#document status == accepted2
 	else:
-		f = open("/home/AD/quantumato/blacksite.log", "a")
-		f.write("User does not match object ", id, " user: ", user)
+		document['status'] = 'accepted'
+		d.insert_match(document)
+elif user == document['user_2']:
+	if document['status'] == 'pending':
+		document['status'] = 'accepted2'
+		d.insert_match(document)
+	else:
+		document['status'] = 'accepted'
+		d.insert_match(document)
+#this should never execute
+else:
+	f = open("/home/AD/quantumato/blacksite.log", "a")
+	f.write("User does not match object ", oid, " user: ", user)
