@@ -4,11 +4,12 @@
 #import db
 import db, datetime
 class match:
-	#pass in two user ids
-	def __init__(self, user_1, user_2, matcher):
-		self.uid_1 = user_1
-		self.uid_2 = user_2
-		self.matcher_uid = matcher
+	#pass in dictionary
+	def __init__(self, m):
+		self.uid_1 = m['user_1']
+		self.uid_2 = m['user_2']
+		self.matcher_uid = m['matcher']
+		self.comment = m['comment']
 		self.date_time = datetime.datetime.now()
 
 	#make a json object for inserting into the db
@@ -17,6 +18,7 @@ class match:
 			"user_1": self.uid_1,
 			"user_2": self.uid_2,
 			"matcher": self.matcher_uid,
+			"comment": self.comment,
 			"date_time": self.date_time,
 			"status": "pending"
 		}
@@ -26,3 +28,6 @@ class match:
 
 	def get_uid_2(self):
 		return self.uid_2
+	
+	def get_comment(self):
+		return self.comment

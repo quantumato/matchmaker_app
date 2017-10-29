@@ -24,7 +24,8 @@ def test1():
 	d.print_all()
 
 def gen_match(uid1, uid2, matcher):
-	return match(str(uid1), str(uid2), str(matcher))
+	return {'user_1': uid1, 'user_2': uid2, 'matcher': str(matcher), 'comment': None};
+	#return match(m)
 	
 #test retrieval of all matches
 def test2():
@@ -50,4 +51,5 @@ def test2():
 	for u in ulist:
 		print(u)
 	d.cleardb()
+test1()
 test2()

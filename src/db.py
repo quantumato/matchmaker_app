@@ -17,8 +17,8 @@ class db:
 	def insert_match(self, match):
 		#update won't insert if it's a duplicate
 		#TODO: handle unique ids manually for 
-		self.match_coll.update_one({"user_1": match.get_uid_1(), "user_2": match.get_uid_2()},
-							{"$set": match.make_json()},
+		self.match_coll.update_one({"user_1": match["user_1"], "user_2": match["user_2"]},
+							{"$set": match},
 							upsert=True
 							)
 	#returns JSON object with results of query
