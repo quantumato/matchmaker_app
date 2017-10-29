@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Semantic UI Sandbox</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css">
+    <style>
+    #friend input:checked + span {
+      background-color:#559;
+      color:#fff;
+    }
+    </style>
+  </head>
+  <body>
+    <script src="output.js"></script>
+    <script src="fb.js"></script>
+
+    <div class="ui container">
+      <!-- HEADER -->
+      <br/>
+      <div class="ui menu">
+        <div class="header item">
+          <h5 class="ui huge header">IntroDueceMe</h5>
+        </div>
+        <div class="right menu"> 
+          <div class="ui simple dropdown item" id="facebookLogin">
+            <fb:login-button scope="public_profile,email,user_friends" onlogin="checkLoginState();">
+            </fb:login-button>
+          </div>
+          <div class="ui simple dropdown item" id="userInfo" style="display: none;">
+            <h2 class="ui medium header" id="userName">Name Last</h2>
+            <img id="userPhoto" src="" style="width:50px"/> 
+            <div class="floating ui teal label" id="pendCount"></div>
+            <input type="hidden" id="userID"/>
+            <i class="dropdown icon"></i>
+            <div class="menu">
+              <div class="ui link list">
+                <a class="item" href="index.html">Matchmake</a>
+                <a class="item" href="matches.html">Your Matches</a>
+                <a class="item" href="#" onclick="FB.logout(function(response){document.location.reload();});">Logout</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="status">
+      </div>
+      <div id="success" class="ui green inverted segment" style="display: none;">
+        <div class="">
+          <div class="header">Success</div>
+          <p>Your match was submitted</p>
+        </div>
+      </div>
+      <form class="ui form segment" id="theForm" style="display: none;" onsubmit="return validateForm()">
+        <div class="ui stackable four column grid" id="friends"></div>
+        <hr/>
+        <div class="field">
+          <label>Comments</label>
+          <input type="text" name="comments" placeholder="Comment (optional)"/>
+        </div>
+        <div id="formError" class="ui error form segment" style="display: none;">
+          <div class="ui error message">
+            <div class="header">Warning</div>
+            <p>You must select two people</p>
+          </div>
+        </div>
+        <div class="field">
+          <button type="submit" class="ui button" >Match!</button>
+        </div>
+        <hr/>
+        <input type="hidden" id="userID" name="userID"/>
+      </form>
+
+    </div>
+    <br/>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>-->
+  </body>
+</html>

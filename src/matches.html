@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Semantic UI Sandbox</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css">
+    <style>
+    #friend input:checked + span {
+      background-color:#559;
+      color:#fff;
+    }
+    </style>
+  </head>
+  <body>
+    <script src="matches.js"></script>
+    <script src="fb.js"></script>
+
+    <div class="ui container">
+      <!-- HEADER -->
+      <br/>
+      <div class="ui menu">
+        <div class="header item">
+          <h5 class="ui huge header">IntroDeuceMe</h5>
+        </div>
+        <div class="right menu"> 
+          <div class="ui simple dropdown item" id="facebookLogin">
+            <fb:login-button scope="public_profile,email,user_friends" onlogin="checkLoginState();">
+            </fb:login-button>
+          </div>
+          <div class="ui simple dropdown item" id="userInfo" style="display: none;">
+            <h2 class="ui medium header" id="userName">Name Last</h2>
+            <img id="userPhoto" src="" style="width:50px"/> 
+            <div class="floating ui teal label" id="pendCount"></div>
+            <input type="hidden" id="userID"/>
+            <i class="dropdown icon"></i>
+            <div class="menu">
+              <div class="ui link list">
+                <a class="item" href="index.html">Matchmake</a>
+                <a class="item" href="matches.html">Your Matches</a>
+                <a class="item" href="#" onclick="FB.logout(function(response){document.location.reload();});">Logout</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="status">
+      </div>
+      <h3 classs="ui small header">Pending</h3>
+      <table class="ui celled table" id="pendMatches">
+        <thead>
+          <tr><th>Your match</th>
+          <th>Matchmaker</th>
+          <th>Matchmaker Comment</th>
+          <th/><th/>
+        </tr></thead>
+        <tbody id="pend_match_body"></tbody>
+      </table>
+      <h3 classs="ui small header">Matches</h3>
+      <table class="ui celled table" id="goodMatches">
+        <thead>
+          <tr><th>Your match</th>
+          <th>Matchmaker</th>
+          <th>Matchmaker Comment</th>
+          <th>Link</th>
+        </tr></thead>
+        <tbody id="good_match_body"></tbody>
+      </table>
+
+
+    </div>
+    <br/>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>-->
+  </body>
+</html>
